@@ -6,7 +6,7 @@ $.fn.yaz = function(uopts) {
 var
 	zx, zy,	// zoom position (x, y)
 	info,	// current infos
-	t, t2,	// temp variable
+	t, 	// temp variable
 
 	/* options */
 	dopts = {},
@@ -50,6 +50,7 @@ var
 			zy -= t - info.size.h;
 		}
 
+		// the zoom
 		$(this).data('ezoom').css({
 			'background-position-x': -zx,
 			'background-position-y': -zy
@@ -86,7 +87,8 @@ var
 		 .on('mousemove', mousemove)
 		 .on('mouseleave', mouseleave);
 
-		$(this).data('ezoom', $(this).next('.yaz-zoom'));
+		$(this)
+		 .data('ezoom', $(this).parent().children('.yaz-zoom'));
 	});
 };
 
