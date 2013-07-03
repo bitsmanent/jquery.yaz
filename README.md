@@ -1,4 +1,4 @@
 jquery.yaz
 ==========
 
-Yet another zoomer
+Yet another zoomer. But simpler.
