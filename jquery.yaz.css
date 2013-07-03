@@ -1,0 +1,12 @@
+.yaz-container .yaz-zoom {
+	display: none;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	width: 388px;
+	height: 400px;
+	position: absolute;
+	top: 0;
+	left: 100%;
+	z-index: 1;
+	border: 1px solid #000;
+}
