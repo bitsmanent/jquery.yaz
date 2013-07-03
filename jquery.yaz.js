@@ -4,16 +4,16 @@ $.fn.yaz = function(uopts) {
 "use strict";
 
 var
-	zx, zy,	// zoom position (x, y)
 	info,	// current infos
 	t, 	// temp variable
+	x, y,	// position (x, y)
 
 	/* options */
 	dopts = {},
 	opts = $.extend(dopts, uopts),
 
 	/* functions implementation */
-	mouseenter = function() {
+	activate = function() {
 		info = {};
 		info.url = getimageurl(this);
 		info.img = this;
@@ -27,37 +27,36 @@ var
 		});
 	},
 
-	mousemove = function(ev) {
+	update = function(ev) {
 		if(!info.ready)
 			return;
 
+		/* zoom */
 		info.ratio = {
 			x: parseInt(info.size.w / info.img.width, 10),
 			y: parseInt(info.size.h / info.img.height, 10)
 		};
 
-		zx = (ev.offsetX * info.ratio.x);
-		zy = (ev.offsetY * info.ratio.y);
+		x = (ev.offsetX * info.ratio.x);
+		y = (ev.offsetY * info.ratio.y);
 
 		/* Note: this works properly but would be better implemented with a factor. */
 
-		t = zx + $(this).data('ezoom').width();
+		t = x + $(this).data('ezoom').width();
 		if(t > info.size.w) {
-			zx -= t - info.size.w;
+			x -= t - info.size.w;
 		}
-		t = zy + $(this).data('ezoom').height();
+		t = y + $(this).data('ezoom').height();
 		if(t > info.size.h) {
-			zy -= t - info.size.h;
+			y -= t - info.size.h;
 		}
-
-		// the zoom
 		$(this).data('ezoom').css({
-			'background-position-x': -zx,
-			'background-position-y': -zy
+			'background-position-x': -x,
+			'background-position-y': -y
 		});
 	},
 
-	mouseleave = function() {
+	deactivate = function() {
 		$(this).data('ezoom').removeClass('yaz-visible');
 		info.ready = false;
 	},
@@ -83,10 +82,10 @@ var
 		 .addClass('yaz-target')
 		 .wrap('<div class="yaz-container" />')
 		 .after('<div class="yaz-zoom" />')
-		 .on('mouseenter', mouseenter)
-		 .on('mousemove', mousemove)
-		 .on('mouseleave', mouseleave);
-
+		 .on('mouseenter', activate)
+		 .on('mousemove', update)
+		 .on('mouseleave', deactivate);
+		
 		$(this)
 		 .data('ezoom', $(this).parent().children('.yaz-zoom'));
 	});
