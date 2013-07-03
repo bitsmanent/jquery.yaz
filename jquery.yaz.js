@@ -20,8 +20,7 @@ var
 
 		getimagesize(info.url, function(size) {
 			info.size = size;
-
-			$(info.img).data('ezoom').css({'background-image':'url('+info.url+')'}).toggle(true);
+			$(info.img).data('ezoom').css({'background-image':'url('+info.url+')'}).addClass('yaz-visible');
 			info.ready = true;
 		});
 	},
@@ -56,7 +55,7 @@ var
 	},
 
 	mouseleave = function() {
-		$(this).data('ezoom').toggle(false);
+		$(this).data('ezoom').removeClass('yaz-visible');
 		info.ready = false;
 	},
 
