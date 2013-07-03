@@ -20,6 +20,8 @@ var
 
 		getimagesize(info.url, function(size) {
 			info.size = size;
+			if(info.size.w <= info.img.width && info.size.h <= info.img.height)
+				return;
 			$(info.img).data('ezoom').css({'background-image':'url('+info.url+')'}).addClass('yaz-visible');
 			info.ready = true;
 		});
