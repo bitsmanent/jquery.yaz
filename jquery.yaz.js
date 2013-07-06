@@ -10,9 +10,9 @@ var
 
 	/* options */
 	dopts = {
-		onActivate: 'mouseenter',
-		onDeactivate: 'mouseleave',
-		onUpdate: 'mouseover'
+		activateEvent: 'mouseenter',
+		deactivateEvent: 'mouseleave',
+		updateEvent: 'mouseover'
 	},
 	opts = $.extend(dopts, uopts),
 
@@ -83,9 +83,9 @@ var
 		 .addClass('yaz-target')
 		 .wrap('<div class="yaz-container" />')
 		 .after('<div class="yaz-zoom" />')
-		 .on(onActivate, activate)
-		 .on(onUpdate, update)
-		 .on(onDeactivate, deactivate);
+		 .on(activateEvent, activate)
+		 .on(updateEvent, update)
+		 .on(deactivateEvent, deactivate);
 		
 		$(this)
 		 .data('ezoom', $(this).parent().children('.yaz-zoom'));
