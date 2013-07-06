@@ -10,9 +10,15 @@ var
 
 	/* options */
 	dopts = {
+		/* events */
 		activateEvent: 'mouseenter',
 		deactivateEvent: 'mouseleave',
-		updateEvent: 'mouseover'
+		updateEvent: 'mouseover',
+
+		/* callbacks */
+		onActivate: null,
+		onDeactivate: null,
+		onUpdate: null
 	},
 	opts = $.extend(dopts, uopts),
 
@@ -30,7 +36,13 @@ var
 				return;
 			$(info.img).data('ezoom').css({'background-image':'url('+info.url+')'}).addClass('yaz-visible');
 			info.ready = true;
+			callback(opts.onActivate);
 		});
+	},
+
+	callback = function(f) {
+		if(typeof f === 'function')
+			f();
 	},
 
 	update = function(ev) {
@@ -55,11 +67,13 @@ var
 			'background-position-x': -x,
 			'background-position-y': -y
 		});
+		callback(opts.onUpdate);
 	},
 
 	deactivate = function() {
 		$(this).data('ezoom').removeClass('yaz-visible');
 		info.ready = false;
+		callback(opts.onDeactivate);
 	},
 
 	getimageurl = function(el) {
@@ -83,9 +97,9 @@ var
 		 .addClass('yaz-target')
 		 .wrap('<div class="yaz-container" />')
 		 .after('<div class="yaz-zoom" />')
-		 .on(activateEvent, activate)
-		 .on(updateEvent, update)
-		 .on(deactivateEvent, deactivate);
+		 .on(opts.activateEvent, activate)
+		 .on(opts.updateEvent, update)
+		 .on(opts.deactivateEvent, deactivate);
 		
 		$(this)
 		 .data('ezoom', $(this).parent().children('.yaz-zoom'));
