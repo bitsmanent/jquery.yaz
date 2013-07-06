@@ -5,8 +5,8 @@ $.fn.yaz = function(uopts) {
 
 var
 	info,	// current infos
-	t, 	// temp variable
 	x, y,	// position (x, y)
+	t, 	// temp variable
 
 	/* options */
 	dopts = {
@@ -17,12 +17,6 @@ var
 	opts = $.extend(dopts, uopts),
 
 	/* functions implementation */
-	_activate = function() {
-		if(info.size.w <= info.img.width && info.size.h <= info.img.height)
-			return;
-		$(info.img).data('ezoom').css({'background-image':'url('+info.url+')'}).addClass('yaz-visible');
-	},
-
 	activate = function() {
 		info = {};
 		info.url = getimageurl(this);
@@ -30,7 +24,11 @@ var
 
 		getimagesize(info.url, function(size) {
 			info.size = size;
-			_activate();
+
+			/* activate */
+			if(info.size.w <= info.img.width && info.size.h <= info.img.height)
+				return;
+			$(info.img).data('ezoom').css({'background-image':'url('+info.url+')'}).addClass('yaz-visible');
 			info.ready = true;
 		});
 	},
