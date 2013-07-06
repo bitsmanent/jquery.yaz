@@ -9,7 +9,11 @@ var
 	x, y,	// position (x, y)
 
 	/* options */
-	dopts = {},
+	dopts = {
+		onActivate: 'mouseenter',
+		onDeactivate: 'mouseleave',
+		onUpdate: 'mouseover'
+	},
 	opts = $.extend(dopts, uopts),
 
 	/* functions implementation */
@@ -48,6 +52,7 @@ var
 		if(t > info.size.h) {
 			y -= t - info.size.h;
 		}
+
 		$(this).data('ezoom').css({
 			'background-position-x': -x,
 			'background-position-y': -y
@@ -80,9 +85,9 @@ var
 		 .addClass('yaz-target')
 		 .wrap('<div class="yaz-container" />')
 		 .after('<div class="yaz-zoom" />')
-		 .on('mouseenter', activate)
-		 .on('mousemove', update)
-		 .on('mouseleave', deactivate);
+		 .on(onActivate, activate)
+		 .on(onUpdate, update)
+		 .on(onDeactivate, deactivate);
 		
 		$(this)
 		 .data('ezoom', $(this).parent().children('.yaz-zoom'));
