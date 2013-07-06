@@ -35,14 +35,8 @@ var
 		if(!info.ready)
 			return;
 
-		/* zoom */
-		info.ratio = {
-			x: parseInt(info.size.w / info.img.width, 10),
-			y: parseInt(info.size.h / info.img.height, 10)
-		};
-
-		x = (ev.offsetX * info.ratio.x);
-		y = (ev.offsetY * info.ratio.y);
+		x = ev.offsetX * parseInt(info.size.w / info.img.width, 10);
+		y = ev.offsetY * parseInt(info.size.h / info.img.height, 10);
 
 		/* Note: this works properly but would be better implemented with a factor. */
 
