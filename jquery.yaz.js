@@ -32,8 +32,12 @@ var
 			info.size = size;
 
 			/* activate */
-			if(info.size.w <= info.img.width && info.size.h <= info.img.height)
+			if(info.size.w <= info.img.width && info.size.h <= info.img.height) {
+				$(info.img).removeClass('zoomable');
 				return;
+			}
+			else
+				$(info.img).addClass('zoomable');
 			$(info.img).data('ezoom').css({'background-image':'url('+info.url+')'}).addClass('yaz-visible');
 			info.ready = true;
 			callback(opts.onActivate);
