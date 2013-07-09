@@ -49,8 +49,8 @@ var
 		if(!info.ready)
 			return;
 
-		x = ev.offsetX * parseInt(info.size.w / info.img.width, 10);
-		y = ev.offsetY * parseInt(info.size.h / info.img.height, 10);
+		x = (ev.offsetX || ev.pageX - $(info.img).offset().left) * parseInt(info.size.w / info.img.width, 10);
+		y = (ev.offsetY || ev.pageY - $(info.img).offset().top) * parseInt(info.size.h / info.img.height, 10);
 
 		/* Note: this works properly but would be better implemented with a factor. */
 
@@ -63,10 +63,7 @@ var
 			y -= t - info.size.h;
 		}
 
-		$(this).data('ezoom').css({
-			'background-position-x': -x,
-			'background-position-y': -y
-		});
+		$(this).data('ezoom').css({'background-position': (-x)+'px '+(-y)+'px'});
 		callback(opts.onUpdate);
 	},
 
