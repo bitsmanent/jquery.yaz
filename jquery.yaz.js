@@ -13,7 +13,7 @@ var
 		/* events */
 		activateEvent: 'mouseenter',
 		deactivateEvent: 'mouseleave',
-		updateEvent: 'mouseover',
+		updateEvent: 'mousemove',
 
 		/* callbacks */
 		onActivate: null,
