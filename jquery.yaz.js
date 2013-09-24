@@ -4,7 +4,10 @@ $.fn.yaz = function(uopts) {
 "use strict";
 
 var
-	info,	// current infos
+	// current infos
+	info = {
+		ready: false,
+	},
 	x, y,	// position (x, y)
 	t, 	// temp variable
 
@@ -102,8 +105,7 @@ var
 		 .on(opts.updateEvent, update)
 		 .on(opts.deactivateEvent, deactivate);
 		
-		$(this)
-		 .data('ezoom', $(this).parent().children('.yaz-zoom'));
+		$(this).data('ezoom', $(this).parent().children('.yaz-zoom'));
 	});
 };
 
